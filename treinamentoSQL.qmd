@@ -1,0 +1,28 @@
+---
+title: "Treinamento SQL"
+format: 
+  html:
+    embed-resources: true
+    smooth-scroll: true
+    code-fold: true    
+---
+Carregue um arquivo _.csv_ e utilize SQL para manipulá-lo.
+```{ojs}
+
+viewof file = Inputs.file({label: "arquivo CSV", accept: ".csv", required: true})
+
+db = await DuckDBClient.of({
+    // trust: FileAttachment("ipsos-trust-professions-bycountry.csv"),
+    tabela: await file.csv()
+})
+
+data = db.query("SELECT * FROM tabela")
+
+Inputs.table(data)
+
+viewof sql = Inputs.textarea({label: "SQL", placeholder: "SELECT * FROM tabela", submit: "rodar"})
+
+query = db.query(sql)
+
+Inputs.table(query)
+```
