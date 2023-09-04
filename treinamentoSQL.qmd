@@ -2,7 +2,7 @@
 title: "Treinamento SQL"
 format: 
   html:
-    embed-resources: true
+    # embed-resources: true
     smooth-scroll: true
     code-fold: true    
 ---
