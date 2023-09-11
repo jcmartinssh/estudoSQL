@@ -1,0 +1,14 @@
+WITH tabela_ajustada AS (
+  SELECT country_code, country_name, year, occupation
+            , case when "trust" = '' then '0'
+                     else "trust" end as "confianca"
+            , case when "neither" = '' then '0'
+                     else "neither" end as "nenhum"
+            , case when "distrust" = '' then '0'
+                     else "distrust" end as "desconfianca"
+FROM tabela
+)
+SELECT country_name
+          , concat(round(SUM(confianca::REAL) / (SUM(confianca::REAL) + SUM(nenhum::REAL) + SUM(desconfianca::REAL)) * 100, 2), '%') as '% confianca'
+FROM tabela_ajustada
+GROUP BY country_name
