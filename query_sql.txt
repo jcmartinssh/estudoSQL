@@ -9,6 +9,6 @@ WITH tabela_ajustada AS (
 FROM tabela
 )
 SELECT country_name
-          , concat(round(SUM(confianca::REAL) / (SUM(confianca::REAL) + SUM(nenhum::REAL) + SUM(desconfianca::REAL)) * 100, 2), '%') as '% confianca'
+          , round(SUM(confianca::REAL) / (SUM(confianca::REAL) + SUM(nenhum::REAL) + SUM(desconfianca::REAL)) * 100, 2) as '% confianca'
 FROM tabela_ajustada
 GROUP BY country_name
